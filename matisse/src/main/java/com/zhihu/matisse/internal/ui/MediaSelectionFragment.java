@@ -22,6 +22,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +41,7 @@ import com.zhihu.matisse.internal.utils.UIUtils;
 public class MediaSelectionFragment extends Fragment implements
         AlbumMediaCollection.AlbumMediaCallbacks, AlbumMediaAdapter.CheckStateListener,
         AlbumMediaAdapter.OnMediaClickListener {
-
+    private static final String TAG = "MediaSelectionFragment";
     public static final String EXTRA_ALBUM = "extra_album";
 
     private final AlbumMediaCollection mAlbumMediaCollection = new AlbumMediaCollection();
@@ -89,6 +91,7 @@ public class MediaSelectionFragment extends Fragment implements
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.i(TAG, "onActivityCreated: ");
         Album album = getArguments().getParcelable(EXTRA_ALBUM);
 
         mAdapter = new AlbumMediaAdapter(getContext(),
@@ -110,13 +113,20 @@ public class MediaSelectionFragment extends Fragment implements
         mRecyclerView.addItemDecoration(new MediaGridInset(spanCount, spacing, false));
         mRecyclerView.setAdapter(mAdapter);
         mAlbumMediaCollection.onCreate(getActivity(), this);
-        mAlbumMediaCollection.load(album, selectionSpec.capture);
+        mAlbumMediaCollection.load(album, selectionSpec.capture); // 获取数据
+    }
+
+    @Override
+    public void onStop() {
+        Log.i(TAG, "onStop: ");
+        super.onStop();
+        mAlbumMediaCollection.onDestroy();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mAlbumMediaCollection.onDestroy();
+        Log.d(TAG, "onDestroyView: ");
     }
 
     public void refreshMediaGrid() {
