@@ -346,8 +346,9 @@ public class MatisseActivity extends AppCompatActivity implements
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("AlbumMediaAdapter", "onItemSelected:position=" + position + ",id=" + id);
         mAlbumCollection.setStateCurrentSelection(position);
-        mAlbumsAdapter.getCursor().moveToPosition(position);
+        mAlbumsAdapter.getCursor().moveToPosition(position); // 移动光标到一个绝对的位置
         Album album = Album.valueOf(mAlbumsAdapter.getCursor());
         if (album.isAll() && SelectionSpec.getInstance().capture) {
             album.addCaptureCount();
@@ -387,6 +388,7 @@ public class MatisseActivity extends AppCompatActivity implements
     }
 
     private void onAlbumSelected(Album album) {
+        Log.d("TAG", "onAlbumSelected: album="+album);
         if (album.isAll() && album.isEmpty()) {
             mContainer.setVisibility(View.GONE);
             mEmptyView.setVisibility(View.VISIBLE);

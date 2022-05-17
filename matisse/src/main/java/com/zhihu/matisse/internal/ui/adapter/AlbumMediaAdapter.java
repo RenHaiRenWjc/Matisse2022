@@ -22,6 +22,8 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +42,6 @@ import com.zhihu.matisse.internal.ui.widget.MediaGrid;
 public class AlbumMediaAdapter extends
         RecyclerViewCursorAdapter<RecyclerView.ViewHolder> implements
         MediaGrid.OnMediaGridClickListener {
-
     private static final int VIEW_TYPE_CAPTURE = 0x01;
     private static final int VIEW_TYPE_MEDIA = 0x02;
     private final SelectedItemCollection mSelectedCollection;
@@ -88,7 +89,7 @@ public class AlbumMediaAdapter extends
     protected void onBindViewHolder(final RecyclerView.ViewHolder holder, Cursor cursor) {
         if (holder instanceof CaptureViewHolder) {
             CaptureViewHolder captureViewHolder = (CaptureViewHolder) holder;
-            Drawable[] drawables = captureViewHolder.mHint.getCompoundDrawables();
+            Drawable[] drawables = captureViewHolder.mHint.getCompoundDrawables(); // Returns drawables for the left, top, right, and bottom borders.
             TypedArray ta = holder.itemView.getContext().getTheme().obtainStyledAttributes(
                     new int[]{R.attr.capture_textColor});
             int color = ta.getColor(0, 0);

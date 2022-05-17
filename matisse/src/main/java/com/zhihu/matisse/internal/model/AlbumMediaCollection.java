@@ -95,7 +95,7 @@ public class AlbumMediaCollection implements LoaderManager.LoaderCallbacks<Curso
         Bundle args = new Bundle();
         args.putParcelable(ARGS_ALBUM, target);
         args.putBoolean(ARGS_ENABLE_CAPTURE, enableCapture);
-        mLoaderManager.initLoader(LOADER_ID, args, this);
+        mLoaderManager.initLoader(LOADER_ID, args, this); // init loader
     }
 
     public interface AlbumMediaCallbacks {

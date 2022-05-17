@@ -21,12 +21,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.zhihu.matisse.R;
 import com.zhihu.matisse.internal.loader.AlbumLoader;
-
+// 下拉选择的类型
 public class Album implements Parcelable {
     public static final Creator<Album> CREATOR = new Creator<Album>() {
         @Nullable
@@ -111,7 +112,7 @@ public class Album implements Parcelable {
         return mDisplayName;
     }
 
-    public boolean isAll() {
+    public boolean isAll() { // 全部，加入拍照入口
         return ALBUM_ID_ALL.equals(mId);
     }
 
