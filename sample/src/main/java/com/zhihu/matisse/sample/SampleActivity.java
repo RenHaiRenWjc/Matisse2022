@@ -104,7 +104,7 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                         .setOnCheckedListener(isChecked -> {
                             Log.e("isChecked", "onCheck: isChecked=" + isChecked);
                         })
-                        .forResult(REQUEST_CODE_CHOOSE);
+                        .forDialogResult(REQUEST_CODE_CHOOSE);
                 break;
             case R.id.dracula:
                 Matisse.from(SampleActivity.this)
