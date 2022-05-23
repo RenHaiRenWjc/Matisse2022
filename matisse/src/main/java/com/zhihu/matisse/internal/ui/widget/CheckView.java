@@ -37,11 +37,11 @@ import com.zhihu.matisse.R;
 public class CheckView extends View {
 
     public static final int UNCHECKED = Integer.MIN_VALUE;
-    private static final float STROKE_WIDTH = 3.0f; // dp
+    private static final float STROKE_WIDTH = 1.0f; // dp
     private static final float SHADOW_WIDTH = 6.0f; // dp
-    private static final int SIZE = 48; // dp
-    private static final float STROKE_RADIUS = 11.5f; // dp
-    private static final float BG_RADIUS = 11.0f; // dp
+    private static final int SIZE = 32; // dp
+    private static final float STROKE_RADIUS = 8.5f; // dp
+    private static final float BG_RADIUS = 8.0f; // dp
     private static final int CONTENT_SIZE = 16; // dp
     private boolean mCountable;
     private boolean mChecked;
@@ -94,7 +94,7 @@ public class CheckView extends View {
         mStrokePaint.setColor(color);
 
         mCheckDrawable = ResourcesCompat.getDrawable(context.getResources(),
-                R.drawable.ic_check_white_18dp, context.getTheme());
+                R.mipmap.ic_check_white_18dp, context.getTheme());
     }
 
     public void setChecked(boolean checked) {
@@ -210,7 +210,7 @@ public class CheckView extends View {
         if (mTextPaint == null) {
             mTextPaint = new TextPaint();
             mTextPaint.setAntiAlias(true);
-            mTextPaint.setColor(Color.WHITE);
+            mTextPaint.setColor(Color.parseColor("#333333"));
             mTextPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
             mTextPaint.setTextSize(12.0f * mDensity);
         }
