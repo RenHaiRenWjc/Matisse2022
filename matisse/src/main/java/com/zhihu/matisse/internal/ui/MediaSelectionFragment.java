@@ -50,6 +50,7 @@ public class MediaSelectionFragment extends Fragment implements
     private SelectionProvider mSelectionProvider;
     private AlbumMediaAdapter.CheckStateListener mCheckStateListener;
     private AlbumMediaAdapter.OnMediaClickListener mOnMediaClickListener;
+    private boolean clickItemPre;
 
     public static MediaSelectionFragment newInstance(Album album) {
         MediaSelectionFragment fragment = new MediaSelectionFragment();
@@ -118,9 +119,12 @@ public class MediaSelectionFragment extends Fragment implements
 
     @Override
     public void onStop() {
-        Log.i(TAG, "onStop: ");
+        Log.i(TAG, "onStop: clickItemPre="+clickItemPre);
         super.onStop();
-        mAlbumMediaCollection.onDestroy();
+        if(!clickItemPre) {
+            mAlbumMediaCollection.onDestroy();
+        }
+        clickItemPre = false;
     }
 
     @Override
@@ -158,6 +162,7 @@ public class MediaSelectionFragment extends Fragment implements
     @Override
     public void onMediaClick(Album album, Item item, int adapterPosition) {
         if (mOnMediaClickListener != null) {
+            clickItemPre = true;
             mOnMediaClickListener.onMediaClick((Album) getArguments().getParcelable(EXTRA_ALBUM),
                     item, adapterPosition);
         }
