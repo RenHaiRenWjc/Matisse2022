@@ -39,6 +39,7 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
     private Item mMedia;
     private PreBindInfo mPreBindInfo;
     private OnMediaGridClickListener mListener;
+    private View viewEnabled;
 
     public MediaGrid(Context context) {
         super(context);
@@ -57,6 +58,7 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
         mCheckView = (CheckView) findViewById(R.id.check_view);
         mGifTag = (ImageView) findViewById(R.id.gif);
         mVideoDuration = (TextView) findViewById(R.id.video_duration);
+        viewEnabled = findViewById(R.id.view_enabled);
 
         mThumbnail.setOnClickListener(this);
         mCheckView.setOnClickListener(this);
@@ -99,6 +101,7 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
 
     public void setCheckEnabled(boolean enabled) {
         mCheckView.setEnabled(enabled);
+        viewEnabled.setVisibility(!enabled?View.VISIBLE:View.GONE);
     }
 
     public void setCheckedNum(int checkedNum) {

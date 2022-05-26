@@ -33,6 +33,7 @@ import com.zhihu.matisse.internal.entity.SelectionSpec;
 import com.zhihu.matisse.listener.OnCheckedListener;
 import com.zhihu.matisse.listener.OnSelectedListener;
 import com.zhihu.matisse.ui.MatisseActivity;
+import com.zhihu.matisse.ui.MatisseActivityDialog;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -355,6 +356,22 @@ public final class SelectionCreator {
         }
 
         Intent intent = new Intent(activity, MatisseActivity.class);
+
+        Fragment fragment = mMatisse.getFragment();
+        if (fragment != null) {
+            fragment.startActivityForResult(intent, requestCode);
+        } else {
+            activity.startActivityForResult(intent, requestCode);
+        }
+    }
+
+    public void forDialogResult(int requestCode) {
+        Activity activity = mMatisse.getActivity();
+        if (activity == null) {
+            return;
+        }
+
+        Intent intent = new Intent(activity, MatisseActivityDialog.class);
 
         Fragment fragment = mMatisse.getFragment();
         if (fragment != null) {
