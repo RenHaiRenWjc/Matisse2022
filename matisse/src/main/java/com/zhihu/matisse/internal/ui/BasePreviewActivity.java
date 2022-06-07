@@ -355,4 +355,12 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         IncapableCause.handleCause(this, cause);
         return cause == null;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSpec.onCheckedListener = null;
+        mSpec.onSelectedListener = null;
+        mSpec = null;
+    }
 }

@@ -169,6 +169,7 @@ public class MatisseActivity extends AppCompatActivity implements
         mAlbumCollection.onDestroy();
         mSpec.onCheckedListener = null;
         mSpec.onSelectedListener = null;
+        mSpec = null;
     }
 
     @Override
@@ -435,5 +436,6 @@ public class MatisseActivity extends AppCompatActivity implements
             mMediaStoreCompat.dispatchCaptureIntent(this, REQUEST_CODE_CAPTURE);
         }
     }
+
 
 }

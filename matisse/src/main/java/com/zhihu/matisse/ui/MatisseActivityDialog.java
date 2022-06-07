@@ -161,6 +161,7 @@ public class MatisseActivityDialog extends AppCompatActivity implements
         mAlbumCollection.onDestroy();
         mSpec.onCheckedListener = null;
         mSpec.onSelectedListener = null;
+        mSpec = null;
     }
 
     @Override
