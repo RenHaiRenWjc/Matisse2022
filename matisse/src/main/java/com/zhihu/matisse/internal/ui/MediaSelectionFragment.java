@@ -50,7 +50,6 @@ public class MediaSelectionFragment extends Fragment implements
     private SelectionProvider mSelectionProvider;
     private AlbumMediaAdapter.CheckStateListener mCheckStateListener;
     private AlbumMediaAdapter.OnMediaClickListener mOnMediaClickListener;
-    private boolean clickItemPre;
 
     public static MediaSelectionFragment newInstance(Album album) {
         MediaSelectionFragment fragment = new MediaSelectionFragment();
@@ -93,7 +92,6 @@ public class MediaSelectionFragment extends Fragment implements
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log.i(TAG, "onActivityCreated: ");
-        Album album = getArguments().getParcelable(EXTRA_ALBUM);
 
         mAdapter = new AlbumMediaAdapter(getContext(),
                 mSelectionProvider.provideSelectedItemCollection(), mRecyclerView);
@@ -113,18 +111,25 @@ public class MediaSelectionFragment extends Fragment implements
         int spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_spacing);
         mRecyclerView.addItemDecoration(new MediaGridInset(spanCount, spacing, false));
         mRecyclerView.setAdapter(mAdapter);
+//        mAlbumMediaCollection.onCreate(getActivity(), this);
+//        mAlbumMediaCollection.load(album, selectionSpec.capture); // 获取数据
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, ": onResume clickItemPre");
+        Album album = getArguments().getParcelable(EXTRA_ALBUM);
+        SelectionSpec selectionSpec = SelectionSpec.getInstance();
         mAlbumMediaCollection.onCreate(getActivity(), this);
         mAlbumMediaCollection.load(album, selectionSpec.capture); // 获取数据
     }
 
     @Override
     public void onStop() {
-        Log.i(TAG, "onStop: clickItemPre="+clickItemPre);
+        Log.i(TAG, "onStop: clickItemPre");
         super.onStop();
-        if(!clickItemPre) {
-            mAlbumMediaCollection.onDestroy();
-        }
-        clickItemPre = false;
+        mAlbumMediaCollection.onDestroy();
     }
 
     @Override
@@ -132,6 +137,7 @@ public class MediaSelectionFragment extends Fragment implements
         super.onDestroyView();
         Log.d(TAG, "onDestroyView: ");
     }
+
 
     public void refreshMediaGrid() {
         mAdapter.notifyDataSetChanged();
@@ -162,7 +168,6 @@ public class MediaSelectionFragment extends Fragment implements
     @Override
     public void onMediaClick(Album album, Item item, int adapterPosition) {
         if (mOnMediaClickListener != null) {
-            clickItemPre = true;
             mOnMediaClickListener.onMediaClick((Album) getArguments().getParcelable(EXTRA_ALBUM),
                     item, adapterPosition);
         }
